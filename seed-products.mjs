@@ -1,5 +1,4 @@
-import { drizzle } from 'drizzle-orm/mysql2';
-import mysql from 'mysql2/promise';
+import postgres from 'postgres';
 
 const PRODUCTS = [
   {
@@ -117,25 +116,24 @@ const PRODUCTS = [
 ];
 
 async function seedProducts() {
-  const connection = await mysql.createConnection(process.env.DATABASE_URL);
+  const sql = postgres(process.env.DATABASE_URL);
   
   console.log('Seeding products...');
   
   for (const product of PRODUCTS) {
-    await connection.execute(
-      `INSERT INTO products (id, emoji, name, slogan, description, imageUrl, basePrice, isActive) 
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-       ON DUPLICATE KEY UPDATE 
-         emoji = VALUES(emoji),
-         name = VALUES(name),
-         slogan = VALUES(slogan),
-         description = VALUES(description),
-         imageUrl = VALUES(imageUrl)`,
-      [product.id, product.emoji, product.name, product.slogan, product.description, product.imageUrl, '0.00', 1]
-    );
+    await sql`
+      INSERT INTO products (id, emoji, name, slogan, description, image_url, base_price, is_active) 
+      VALUES (${product.id}, ${product.emoji}, ${product.name}, ${product.slogan}, ${product.description}, ${product.imageUrl}, '0.00', 1)
+      ON CONFLICT (id) DO UPDATE SET
+        emoji = EXCLUDED.emoji,
+        name = EXCLUDED.name,
+        slogan = EXCLUDED.slogan,
+        description = EXCLUDED.description,
+        image_url = EXCLUDED.image_url
+    `;
   }
   
-  await connection.end();
+  await sql.end();
   console.log('Products seeded successfully!');
 }
 

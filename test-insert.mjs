@@ -1,16 +1,15 @@
-import { drizzle } from 'drizzle-orm/mysql2';
-import mysql from 'mysql2/promise';
+import { drizzle } from 'drizzle-orm/postgres-js';
+import postgres from 'postgres';
 
-const connection = await mysql.createConnection(process.env.DATABASE_URL);
-const db = drizzle(connection);
+const sql = postgres(process.env.DATABASE_URL);
+const db = drizzle(sql);
 
-const result = await connection.execute(
-  'INSERT INTO orders (customerName, customerEmail, shippingAddress, subtotal, discount, shippingCost, total, status, paymentMethod) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-  ['Test', 'test@test.com', 'Test Address', '0.00', '0.00', '10.00', '10.00', 'pending', 'Revolut']
-);
+// Test connection
+try {
+  const result = await sql`SELECT 1 as test`;
+  console.log('Database connection successful!', result);
+} catch (error) {
+  console.error('Database connection failed:', error);
+}
 
-console.log('Insert result:', result);
-console.log('Insert ID:', result[0].insertId);
-console.log('Type:', typeof result[0].insertId);
-
-await connection.end();
+await sql.end();

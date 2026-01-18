@@ -1,18 +1,22 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, decimal } from "drizzle-orm/mysql-core";
+import { integer, pgEnum, pgTable, text, timestamp, varchar, decimal, serial } from "drizzle-orm/pg-core";
+
+// PostgreSQL enums
+export const roleEnum = pgEnum("role", ["user", "admin"]);
+export const orderStatusEnum = pgEnum("order_status", ["pending", "processing", "shipped", "delivered", "cancelled"]);
 
 /**
  * Core user table backing auth flow.
  */
-export const users = mysqlTable("users", {
-  id: int("id").autoincrement().primaryKey(),
-  openId: varchar("openId", { length: 64 }).notNull().unique(),
+export const users = pgTable("users", {
+  id: serial("id").primaryKey(),
+  openId: varchar("open_id", { length: 64 }).notNull().unique(),
   name: text("name"),
   email: varchar("email", { length: 320 }),
-  loginMethod: varchar("loginMethod", { length: 64 }),
-  role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
-  lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
+  loginMethod: varchar("login_method", { length: 64 }),
+  role: roleEnum("role").default("user").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  lastSignedIn: timestamp("last_signed_in").defaultNow().notNull(),
 });
 
 export type User = typeof users.$inferSelect;
@@ -21,17 +25,17 @@ export type InsertUser = typeof users.$inferInsert;
 /**
  * Products table - Costa Rica themed products
  */
-export const products = mysqlTable("products", {
-  id: int("id").autoincrement().primaryKey(),
+export const products = pgTable("products", {
+  id: serial("id").primaryKey(),
   emoji: varchar("emoji", { length: 10 }).notNull(),
   name: varchar("name", { length: 255 }).notNull(),
   slogan: text("slogan").notNull(),
   description: text("description").notNull(),
-  imageUrl: text("imageUrl").notNull(),
-  basePrice: decimal("basePrice", { precision: 10, scale: 2 }).notNull().default("0.00"),
-  isActive: int("isActive").notNull().default(1),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  imageUrl: text("image_url").notNull(),
+  basePrice: decimal("base_price", { precision: 10, scale: 2 }).notNull().default("0.00"),
+  isActive: integer("is_active").notNull().default(1),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
 export type Product = typeof products.$inferSelect;
@@ -40,21 +44,21 @@ export type InsertProduct = typeof products.$inferInsert;
 /**
  * Orders table - Customer orders
  */
-export const orders = mysqlTable("orders", {
-  id: int("id").autoincrement().primaryKey(),
-  customerName: varchar("customerName", { length: 255 }).notNull(),
-  customerEmail: varchar("customerEmail", { length: 320 }).notNull(),
-  customerPhone: varchar("customerPhone", { length: 50 }),
-  shippingAddress: text("shippingAddress").notNull(),
+export const orders = pgTable("orders", {
+  id: serial("id").primaryKey(),
+  customerName: varchar("customer_name", { length: 255 }).notNull(),
+  customerEmail: varchar("customer_email", { length: 320 }).notNull(),
+  customerPhone: varchar("customer_phone", { length: 50 }),
+  shippingAddress: text("shipping_address").notNull(),
   subtotal: decimal("subtotal", { precision: 10, scale: 2 }).notNull(),
   discount: decimal("discount", { precision: 10, scale: 2 }).notNull().default("0.00"),
-  shippingCost: decimal("shippingCost", { precision: 10, scale: 2 }).notNull(),
+  shippingCost: decimal("shipping_cost", { precision: 10, scale: 2 }).notNull(),
   total: decimal("total", { precision: 10, scale: 2 }).notNull(),
-  status: mysqlEnum("status", ["pending", "processing", "shipped", "delivered", "cancelled"]).default("pending").notNull(),
-  paymentMethod: varchar("paymentMethod", { length: 50 }).notNull(),
+  status: orderStatusEnum("status").default("pending").notNull(),
+  paymentMethod: varchar("payment_method", { length: 50 }).notNull(),
   notes: text("notes"),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
 export type Order = typeof orders.$inferSelect;
@@ -63,15 +67,15 @@ export type InsertOrder = typeof orders.$inferInsert;
 /**
  * Order items table - Individual items in an order
  */
-export const orderItems = mysqlTable("orderItems", {
-  id: int("id").autoincrement().primaryKey(),
-  orderId: int("orderId").notNull(),
-  productId: int("productId").notNull(),
-  productName: varchar("productName", { length: 255 }).notNull(),
-  quantity: int("quantity").notNull(),
-  unitPrice: decimal("unitPrice", { precision: 10, scale: 2 }).notNull(),
+export const orderItems = pgTable("order_items", {
+  id: serial("id").primaryKey(),
+  orderId: integer("order_id").notNull(),
+  productId: integer("product_id").notNull(),
+  productName: varchar("product_name", { length: 255 }).notNull(),
+  quantity: integer("quantity").notNull(),
+  unitPrice: decimal("unit_price", { precision: 10, scale: 2 }).notNull(),
   subtotal: decimal("subtotal", { precision: 10, scale: 2 }).notNull(),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 export type OrderItem = typeof orderItems.$inferSelect;
