@@ -11,10 +11,17 @@ let _client: ReturnType<typeof postgres> | null = null;
 export async function getDb() {
   if (!_db && process.env.DATABASE_URL) {
     try {
-      _client = postgres(process.env.DATABASE_URL);
+      console.log("[Database] Connecting to database...");
+      _client = postgres(process.env.DATABASE_URL, {
+        ssl: 'require',
+        max: 1,
+        idle_timeout: 20,
+        connect_timeout: 10,
+      });
       _db = drizzle(_client);
+      console.log("[Database] Connection established");
     } catch (error) {
-      console.warn("[Database] Failed to connect:", error);
+      console.error("[Database] Failed to connect:", error);
       _db = null;
     }
   }
@@ -97,9 +104,19 @@ export async function getUserByOpenId(openId: string) {
 // Products
 export async function getAllProducts() {
   const db = await getDb();
-  if (!db) return [];
-  const result = await db.select().from(products).where(eq(products.isActive, 1));
-  return result;
+  if (!db) {
+    console.error("[Database] Cannot get products: database not available");
+    return [];
+  }
+  try {
+    console.log("[Database] Fetching products...");
+    const result = await db.select().from(products).where(eq(products.isActive, 1));
+    console.log(`[Database] Found ${result.length} products`);
+    return result;
+  } catch (error) {
+    console.error("[Database] Error fetching products:", error);
+    throw error;
+  }
 }
 
 export async function getProductById(id: number) {
