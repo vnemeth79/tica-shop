@@ -54,6 +54,27 @@ export function serveStatic(app: Express) {
   console.log(`[Static] Looking for static files in: ${distPath}`);
   console.log(`[Static] Directory exists: ${fs.existsSync(distPath)}`);
   
+  // List all files in dist/public
+  if (fs.existsSync(distPath)) {
+    try {
+      const files = fs.readdirSync(distPath);
+      console.log(`[Static] Files in dist/public:`, files);
+      
+      // Check for index.html specifically
+      const indexExists = fs.existsSync(path.join(distPath, "index.html"));
+      console.log(`[Static] index.html exists: ${indexExists}`);
+      
+      // Check assets folder
+      const assetsPath = path.join(distPath, "assets");
+      if (fs.existsSync(assetsPath)) {
+        const assetFiles = fs.readdirSync(assetsPath);
+        console.log(`[Static] Assets files:`, assetFiles.slice(0, 5), "...");
+      }
+    } catch (e) {
+      console.error(`[Static] Error listing files:`, e);
+    }
+  }
+  
   if (!fs.existsSync(distPath)) {
     console.error(
       `Could not find the build directory: ${distPath}, make sure to build the client first`
