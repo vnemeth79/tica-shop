@@ -2,7 +2,8 @@ import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ShoppingCart } from "lucide-react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { ShoppingCart, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
@@ -11,6 +12,11 @@ export default function Products() {
   const { data: products, isLoading } = trpc.products.list.useQuery();
   const { addItem } = useCart();
   const [quantities, setQuantities] = useState<Record<number, number>>({});
+  const [expandedProducts, setExpandedProducts] = useState<Record<number, boolean>>({});
+
+  const toggleExpanded = (productId: number) => {
+    setExpandedProducts(prev => ({ ...prev, [productId]: !prev[productId] }));
+  };
 
   const handleAddToCart = (product: any) => {
     const quantity = quantities[product.id] || 1;
@@ -91,9 +97,31 @@ export default function Products() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <p className="text-sm text-gray-700 line-clamp-4">
-                    {product.description}
-                  </p>
+                  <Collapsible 
+                    open={expandedProducts[product.id]} 
+                    onOpenChange={() => toggleExpanded(product.id)}
+                  >
+                    <CollapsibleTrigger asChild>
+                      <button className="flex items-center gap-1 text-sm font-medium text-green-700 hover:text-green-800 transition-colors">
+                        {expandedProducts[product.id] ? (
+                          <>
+                            <ChevronUp className="h-4 w-4" />
+                            Ocultar detalles
+                          </>
+                        ) : (
+                          <>
+                            <ChevronDown className="h-4 w-4" />
+                            Más detalles
+                          </>
+                        )}
+                      </button>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="pt-2">
+                      <p className="text-sm text-gray-700 leading-relaxed">
+                        {product.description}
+                      </p>
+                    </CollapsibleContent>
+                  </Collapsible>
                   
                   <div className="space-y-3">
                     <div>
