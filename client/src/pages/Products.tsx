@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { ShoppingCart, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
@@ -80,29 +81,48 @@ export default function Products() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {products?.map((product) => (
               <Card key={product.id} className="overflow-hidden hover:shadow-xl transition-shadow">
-                <div className="aspect-square relative overflow-hidden bg-gray-100">
-                  <img
-                    src={product.imageUrl}
-                    alt={product.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                {/* Clickable Image with Lightbox */}
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <div className="aspect-square relative overflow-hidden bg-gray-100 cursor-pointer group">
+                      <img
+                        src={product.imageUrl}
+                        alt={product.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                        <span className="opacity-0 group-hover:opacity-100 text-white bg-black/50 px-3 py-1 rounded-full text-sm transition-opacity">
+                          🔍 Ver imagen
+                        </span>
+                      </div>
+                    </div>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-4xl p-0 bg-transparent border-none">
+                    <img
+                      src={product.imageUrl}
+                      alt={product.name}
+                      className="w-full h-auto rounded-lg"
+                    />
+                  </DialogContent>
+                </Dialog>
+
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-xl">
                     <span className="text-3xl">{product.emoji}</span>
                     {product.name}
                   </CardTitle>
-                  <CardDescription className="text-green-600 font-semibold italic">
+                  <CardDescription className="text-green-600 font-semibold italic text-base">
                     {product.slogan}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
+                  {/* Expandable Description */}
                   <Collapsible 
                     open={expandedProducts[product.id]} 
                     onOpenChange={() => toggleExpanded(product.id)}
                   >
                     <CollapsibleTrigger asChild>
-                      <button className="flex items-center gap-1 text-sm font-medium text-green-700 hover:text-green-800 transition-colors">
+                      <button className="flex items-center gap-1 text-sm font-medium text-green-700 hover:text-green-800 hover:underline transition-colors">
                         {expandedProducts[product.id] ? (
                           <>
                             <ChevronUp className="h-4 w-4" />
@@ -116,8 +136,8 @@ export default function Products() {
                         )}
                       </button>
                     </CollapsibleTrigger>
-                    <CollapsibleContent className="pt-2">
-                      <p className="text-sm text-gray-700 leading-relaxed">
+                    <CollapsibleContent className="pt-3">
+                      <p className="text-sm text-gray-600 leading-relaxed bg-green-50 p-3 rounded-lg border border-green-100">
                         {product.description}
                       </p>
                     </CollapsibleContent>
