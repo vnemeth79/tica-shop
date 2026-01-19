@@ -26,13 +26,9 @@ for (const file of files) {
   totalOriginal += originalSize;
   
   await sharp(inputPath)
-    .resize(800, 800, { 
-      fit: 'inside',
-      withoutEnlargement: true 
-    })
     .jpeg({ 
-      quality: 80,
-      progressive: true 
+      quality: 98,
+      progressive: true
     })
     .toFile(outputPath);
   
