@@ -7,6 +7,12 @@ const PRODUCTS = [
     name: "Coatí Guard",
     slogan: "¡Protege tu viaje!",
     description: "Dispositivo ultrasónico avanzado que emite frecuencias específicas para alertar a la fauna silvestre de Costa Rica. Diseñado especialmente para prevenir colisiones con coatíes, venados y otros animales en carreteras montañosas. Se monta fácilmente en el parachoques del vehículo y se activa automáticamente con el movimiento. Resistente al agua y a condiciones climáticas extremas.",
+    designDetails: "Forma ovalada aerodinámica con silueta de coatí grabada en plata. Diseño minimalista y elegante que complementa cualquier vehículo.",
+    colors: JSON.stringify([
+      { name: "Negro", hex: "#1a1a1a" },
+      { name: "Plata", hex: "#c0c0c0" },
+      { name: "Verde", hex: "#4caf50" }
+    ]),
     imageUrl: "/products/01_coati_guard.jpg"
   },
   {
@@ -15,6 +21,12 @@ const PRODUCTS = [
     name: "Ocelot Alert",
     slogan: "¡Viaja seguro en la selva!",
     description: "Sistema de alerta premium con tecnología de doble frecuencia para proteger tanto a los conductores como a la vida silvestre en peligro de extinción. Especialmente efectivo en zonas de reservas naturales y parques nacionales. Incluye indicador LED de funcionamiento y batería de larga duración. Certificado por organizaciones de conservación de Costa Rica.",
+    designDetails: "Rostro de ocelote estilizado en vista frontal. Intensos ojos destacados. Patrón de manchas con líneas naranjas sobre fondo negro.",
+    colors: JSON.stringify([
+      { name: "Negro", hex: "#1a1a1a" },
+      { name: "Naranja", hex: "#ff8c00" },
+      { name: "Amarillo", hex: "#ffeb3b" }
+    ]),
     imageUrl: "/products/02_ocelot_alert.jpg"
   },
   {
@@ -23,6 +35,12 @@ const PRODUCTS = [
     name: "Brisa Tica",
     slogan: "¡Aire fresco, energía limpia!",
     description: "Ventilador solar innovador que mantiene tu vehículo fresco incluso cuando está estacionado bajo el intenso sol tropical. El panel solar de alta eficiencia captura la energía del sol para hacer circular el aire caliente hacia afuera. Reduce la temperatura interior hasta 15°C. Instalación sin herramientas en cualquier ventana. Perfecto para el clima de Costa Rica.",
+    designDetails: "Ventilador solar montable en ventana. Aspas en forma de alas de colibrí. Logo central de mariposa Morpho. Gradiente iridiscente azul-verde.",
+    colors: JSON.stringify([
+      { name: "Azul", hex: "#0277bd" },
+      { name: "Turquesa", hex: "#00bcd4" },
+      { name: "Verde", hex: "#4caf50" }
+    ]),
     imageUrl: "/products/03_brisa_tica.jpg"
   },
   {
@@ -31,6 +49,13 @@ const PRODUCTS = [
     name: "Tucán Grip",
     slogan: "¡Tu teléfono siempre a mano!",
     description: "Soporte magnético de teléfono con diseño inspirado en el pico del tucán. Rotación 360° para vista perfecta en modo retrato o paisaje. Base con ventosa de vacío ultra fuerte que se adhiere a cualquier superficie. Compatible con todos los smartphones. Incluye placas magnéticas adhesivas. Ideal para navegación GPS en las rutas de Costa Rica.",
+    designDetails: "Ventosa = cabeza de tucán. El gran pico naranja es el elemento funcional para sostener el teléfono. Apariencia alegre y juguetona.",
+    colors: JSON.stringify([
+      { name: "Pico Naranja", hex: "#ff6f00" },
+      { name: "Negro", hex: "#1a1a1a" },
+      { name: "Verde", hex: "#4caf50" },
+      { name: "Amarillo", hex: "#fff9c4" }
+    ]),
     imageUrl: "/products/04_tucan_grip.jpg"
   },
   {
@@ -39,6 +64,12 @@ const PRODUCTS = [
     name: "Morpho Shield",
     slogan: "¡Protección invisible contra insectos!",
     description: "Repelente ultrasónico de última generación que crea una barrera invisible contra mosquitos, jejenes y otros insectos tropicales. Tecnología silenciosa e inodora, segura para humanos y mascotas. Cobertura de hasta 20 metros cuadrados. Recargable vía USB con batería de 12 horas. Perfecto para terrazas, jardines y actividades al aire libre en Costa Rica.",
+    designDetails: "Dispositivo completo en forma de mariposa Morpho. Superficie iridiscente azul. Indicadores LED = ojos de la mariposa. Carga USB en la parte inferior.",
+    colors: JSON.stringify([
+      { name: "Iridiscente", hex: "#0277bd" },
+      { name: "Azul Oscuro", hex: "#01579b" },
+      { name: "LED Azul", hex: "#4fc3f7" }
+    ]),
     imageUrl: "/products/05_morpho_shield.jpg"
   },
   {
@@ -47,6 +78,12 @@ const PRODUCTS = [
     name: "Sol Tico",
     slogan: "¡Energía del sol en tu bolsillo!",
     description: "Powerbank solar de 20,000mAh con paneles de alta eficiencia. Carga completa en 8 horas de sol tropical. Dos puertos USB para carga simultánea. Linterna LED integrada con modo SOS. Resistente al agua (IP67) y a caídas. Perfecto para excursiones a playas, volcanes y selvas de Costa Rica. Incluye mosquetón para mochila.",
+    designDetails: "Funda de silicona en forma de tortuga marina. Patrón del caparazón = celdas solares. Aletas = botones. Cola = puerto USB.",
+    colors: JSON.stringify([
+      { name: "Verde", hex: "#4caf50" },
+      { name: "Panel Solar", hex: "#1a237e" },
+      { name: "Verde Claro", hex: "#66bb6a" }
+    ]),
     imageUrl: "/products/06_sol_tico.jpg"
   },
   {
@@ -55,6 +92,12 @@ const PRODUCTS = [
     name: "Tortuga Case",
     slogan: "¡Protección total para tu teléfono!",
     description: "Funda impermeable con certificación IP68 que protege tu smartphone hasta 10 metros de profundidad. Diseño inspirado en el caparazón de las tortugas marinas de Costa Rica. Pantalla táctil totalmente funcional bajo el agua. Perfecta para snorkel, kayak y días de playa. Incluye cordón flotante de seguridad. Compatible con la mayoría de smartphones.",
+    designDetails: "Funda impermeable transparente con marco verde. Silueta de tortuga en el fondo. Correa con patrón de olas. Función flotante.",
+    colors: JSON.stringify([
+      { name: "Transparente", hex: "#ffffff" },
+      { name: "Verde", hex: "#4caf50" },
+      { name: "Azul", hex: "#0277bd" }
+    ]),
     imageUrl: "/products/07_tortuga_case.jpg"
   },
   {
@@ -63,6 +106,12 @@ const PRODUCTS = [
     name: "Mono Bottle",
     slogan: "¡Hidratación inteligente!",
     description: "Botella de agua plegable de silicona de grado alimenticio. Se comprime hasta ocupar solo 5cm cuando está vacía. Capacidad de 750ml cuando está expandida. Libre de BPA y resistente a temperaturas de -40°C a 200°C. Mosquetón integrado para colgar en mochilas. Ideal para el clima tropical y aventuras en Costa Rica. Fácil de limpiar.",
+    designDetails: "Tapa = cabeza de mono capuchino. Orejas = asas de transporte. Cuerpo de silicona marrón con acanalado plegable. Acento de hoja verde.",
+    colors: JSON.stringify([
+      { name: "Marrón", hex: "#8d6e63" },
+      { name: "Cara", hex: "#d7ccc8" },
+      { name: "Hoja", hex: "#4caf50" }
+    ]),
     imageUrl: "/products/08_mono_bottle.jpg"
   },
   {
@@ -71,6 +120,12 @@ const PRODUCTS = [
     name: "Ojo de Jaguar",
     slogan: "¡Ilumina tu aventura!",
     description: "Linterna frontal LED de 5000 lúmenes con cinco modos de iluminación. Sensor de movimiento para encendido sin manos. Batería recargable de larga duración (hasta 20 horas en modo bajo). Resistente al agua y ajustable para máxima comodidad. Perfecta para caminatas nocturnas, camping y exploración de cuevas en Costa Rica.",
+    designDetails: "Luz LED = ojo de jaguar con gradiente amarillo-naranja. Banda negra con patrón de manchas. Acentos dorados.",
+    colors: JSON.stringify([
+      { name: "Negro", hex: "#1a1a1a" },
+      { name: "Naranja", hex: "#ff8c00" },
+      { name: "Dorado", hex: "#ffd700" }
+    ]),
     imageUrl: "/products/09_ojo_jaguar.jpg"
   },
   {
@@ -79,6 +134,12 @@ const PRODUCTS = [
     name: "Perezoso Fan",
     slogan: "¡Frescura portátil!",
     description: "Mini ventilador recargable con diseño ultra compacto. Tres velocidades ajustables para máximo confort. Batería de 2000mAh que dura hasta 8 horas. Silencioso como un perezoso. Base plegable para uso de escritorio o portátil. Cable USB-C incluido. Perfecto para el calor tropical de Costa Rica. Disponible en colores inspirados en la naturaleza.",
+    designDetails: "Carcasa del ventilador = cara de perezoso con ojos adormilados. Aspas en forma de hojas. 3 velocidades. Carga USB.",
+    colors: JSON.stringify([
+      { name: "Marrón", hex: "#a1887f" },
+      { name: "Cara", hex: "#d7ccc8" },
+      { name: "Verde", hex: "#4caf50" }
+    ]),
     imageUrl: "/products/10_perezoso_fan.jpg"
   },
   {
@@ -87,6 +148,13 @@ const PRODUCTS = [
     name: "Tucán Finder",
     slogan: "¡Nunca pierdas tus llaves!",
     description: "Localizador Bluetooth de precisión con alcance de 50 metros. Aplicación intuitiva que muestra la ubicación exacta en mapa. Alarma bidireccional: encuentra tu teléfono desde el dispositivo. Batería reemplazable que dura un año. Resistente al agua. Diseño compacto para llaves, mochilas, carteras. Comunidad de búsqueda para objetos perdidos en Costa Rica.",
+    designDetails: "Pequeña figura de tucán como llavero. Pico = altavoz. LED en el pecho. Bluetooth 5.0, compatible con Find My.",
+    colors: JSON.stringify([
+      { name: "Pico Naranja", hex: "#ff6f00" },
+      { name: "Cuerpo Negro", hex: "#1a1a1a" },
+      { name: "Pecho Amarillo", hex: "#fff9c4" },
+      { name: "Rojo", hex: "#e53935" }
+    ]),
     imageUrl: "/products/11_tucan_finder.jpg"
   },
   {
@@ -95,6 +163,13 @@ const PRODUCTS = [
     name: "Pura Vida Thermo",
     slogan: "¡Temperatura perfecta todo el día!",
     description: "Termo de acero inoxidable de doble pared con aislamiento al vacío. Mantiene bebidas frías por 24 horas y calientes por 12 horas. Capacidad de 750ml. Boca ancha para fácil limpieza y adición de hielo. Recubrimiento antideslizante. Libre de BPA. Tapa hermética a prueba de derrames. Perfecto para café en la montaña o agua fría en la playa.",
+    designDetails: "Termo de acero inoxidable con colores nacionales de CR. Grabado dorado de ave Quetzal. Inscripción \"Pura Vida\".",
+    colors: JSON.stringify([
+      { name: "Azul", hex: "#0039a6" },
+      { name: "Rojo", hex: "#ce1126" },
+      { name: "Blanco", hex: "#ffffff" },
+      { name: "Dorado", hex: "#ffd700" }
+    ]),
     imageUrl: "/products/12_pura_vida_thermo.jpg"
   },
   {
@@ -103,6 +178,13 @@ const PRODUCTS = [
     name: "Quetzal Rain",
     slogan: "¡Protección contra la lluvia tropical!",
     description: "Paraguas compacto automático que se abre y cierra con un botón. Estructura reforzada resistente a vientos de hasta 100 km/h. Tela de secado rápido con tratamiento repelente al agua. Se pliega a solo 30cm de longitud. Incluye funda de transporte. Diseño inspirado en las plumas del quetzal. Ideal para la temporada de lluvias de Costa Rica.",
+    designDetails: "Exterior: verde esmeralda sólido. Interior: patrón de plumas de cola de quetzal en gradiente verde-dorado-rojo. ¡Efecto sorpresa al abrir!",
+    colors: JSON.stringify([
+      { name: "Exterior Verde", hex: "#1b5e20" },
+      { name: "Interior Verde", hex: "#4caf50" },
+      { name: "Dorado", hex: "#ffd700" },
+      { name: "Rojo", hex: "#ce1126" }
+    ]),
     imageUrl: "/products/13_quetzal_rain.jpg"
   },
   {
@@ -111,6 +193,13 @@ const PRODUCTS = [
     name: "Ranita Cooler",
     slogan: "¡Frescura para tus aventuras!",
     description: "Bolsa térmica plegable de 20 litros con aislamiento de espuma de alta densidad. Mantiene alimentos y bebidas frías por hasta 8 horas. Exterior resistente al agua e interior fácil de limpiar. Correa ajustable para hombro. Se pliega completamente cuando no está en uso. Perfecta para días de playa, picnics y excursiones en Costa Rica. Incluye bolsillos externos.",
+    designDetails: "Diseño de rana de ojos rojos. Tirador de cremallera = lengua de rana. Patas naranjas en la parte inferior. Rayas laterales azules.",
+    colors: JSON.stringify([
+      { name: "Verde", hex: "#4caf50" },
+      { name: "Ojos Rojos", hex: "#e53935" },
+      { name: "Patas Naranjas", hex: "#ff9800" },
+      { name: "Rayas Azules", hex: "#2196f3" }
+    ]),
     imageUrl: "/products/14_ranita_cooler.jpg"
   }
 ];
@@ -118,23 +207,36 @@ const PRODUCTS = [
 async function seedProducts() {
   const sql = postgres(process.env.DATABASE_URL);
   
-  console.log('Seeding products...');
+  console.log('Seeding products with design details and colors...');
   
   for (const product of PRODUCTS) {
     await sql`
-      INSERT INTO products (id, emoji, name, slogan, description, image_url, base_price, is_active) 
-      VALUES (${product.id}, ${product.emoji}, ${product.name}, ${product.slogan}, ${product.description}, ${product.imageUrl}, '0.00', 1)
+      INSERT INTO products (id, emoji, name, slogan, description, design_details, colors, image_url, base_price, is_active) 
+      VALUES (
+        ${product.id}, 
+        ${product.emoji}, 
+        ${product.name}, 
+        ${product.slogan}, 
+        ${product.description}, 
+        ${product.designDetails},
+        ${product.colors},
+        ${product.imageUrl}, 
+        '0.00', 
+        1
+      )
       ON CONFLICT (id) DO UPDATE SET
         emoji = EXCLUDED.emoji,
         name = EXCLUDED.name,
         slogan = EXCLUDED.slogan,
         description = EXCLUDED.description,
+        design_details = EXCLUDED.design_details,
+        colors = EXCLUDED.colors,
         image_url = EXCLUDED.image_url
     `;
   }
   
   await sql.end();
-  console.log('Products seeded successfully!');
+  console.log('Products seeded successfully with design details and colors!');
 }
 
 seedProducts().catch(console.error);

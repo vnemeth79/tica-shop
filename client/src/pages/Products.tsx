@@ -9,14 +9,28 @@ import { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
 
+// Type for color options
+type ColorOption = { name: string; hex: string };
+
 export default function Products() {
   const { data: products, isLoading } = trpc.products.list.useQuery();
   const { addItem } = useCart();
   const [quantities, setQuantities] = useState<Record<number, number>>({});
   const [expandedProducts, setExpandedProducts] = useState<Record<number, boolean>>({});
+  const [selectedColors, setSelectedColors] = useState<Record<number, string>>({});
 
   const toggleExpanded = (productId: number) => {
     setExpandedProducts(prev => ({ ...prev, [productId]: !prev[productId] }));
+  };
+
+  // Parse colors JSON safely
+  const parseColors = (colorsJson: string | null | undefined): ColorOption[] => {
+    if (!colorsJson) return [];
+    try {
+      return JSON.parse(colorsJson);
+    } catch {
+      return [];
+    }
   };
 
   const handleAddToCart = (product: any) => {
@@ -136,12 +150,59 @@ export default function Products() {
                         )}
                       </button>
                     </CollapsibleTrigger>
-                    <CollapsibleContent className="pt-3">
-                      <p className="text-sm text-gray-600 leading-relaxed bg-green-50 p-3 rounded-lg border border-green-100">
-                        {product.description}
-                      </p>
+                    <CollapsibleContent className="pt-3 space-y-3">
+                      {/* Design Details */}
+                      {product.designDetails && (
+                        <div className="bg-amber-50 p-3 rounded-lg border border-amber-200">
+                          <p className="text-sm font-medium text-amber-800 mb-1">🎨 Diseño:</p>
+                          <p className="text-sm text-amber-700">{product.designDetails}</p>
+                        </div>
+                      )}
+                      {/* Full Description */}
+                      <div className="bg-green-50 p-3 rounded-lg border border-green-100">
+                        <p className="text-sm font-medium text-green-800 mb-1">📋 Descripción:</p>
+                        <p className="text-sm text-gray-600 leading-relaxed">{product.description}</p>
+                      </div>
                     </CollapsibleContent>
                   </Collapsible>
+
+                  {/* Color Options */}
+                  {(() => {
+                    const colors = parseColors(product.colors);
+                    if (colors.length === 0) return null;
+                    return (
+                      <div>
+                        <label className="text-sm font-medium text-gray-700 mb-2 block">
+                          🎨 Colores disponibles:
+                        </label>
+                        <div className="flex flex-wrap gap-2">
+                          {colors.map((color) => (
+                            <button
+                              key={color.name}
+                              onClick={() => setSelectedColors(prev => ({ ...prev, [product.id]: color.name }))}
+                              className={`
+                                relative w-8 h-8 rounded-full border-2 transition-all
+                                ${selectedColors[product.id] === color.name 
+                                  ? 'ring-2 ring-offset-2 ring-green-500 border-green-500' 
+                                  : 'border-gray-300 hover:border-gray-400'}
+                              `}
+                              style={{ backgroundColor: color.hex }}
+                              title={color.name}
+                            >
+                              {color.hex === '#ffffff' && (
+                                <span className="absolute inset-0 rounded-full border border-gray-200" />
+                              )}
+                            </button>
+                          ))}
+                        </div>
+                        {selectedColors[product.id] && (
+                          <p className="text-xs text-gray-500 mt-1">
+                            Seleccionado: <span className="font-medium">{selectedColors[product.id]}</span>
+                          </p>
+                        )}
+                      </div>
+                    );
+                  })()}
                   
                   <div className="space-y-3">
                     <div>

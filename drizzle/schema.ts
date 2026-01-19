@@ -31,6 +31,8 @@ export const products = pgTable("products", {
   name: varchar("name", { length: 255 }).notNull(),
   slogan: text("slogan").notNull(),
   description: text("description").notNull(),
+  designDetails: text("design_details"),  // Design description in Spanish
+  colors: text("colors"),  // JSON array of color options: [{name, hex}]
   imageUrl: text("image_url").notNull(),
   basePrice: decimal("base_price", { precision: 10, scale: 2 }).notNull().default("0.00"),
   isActive: integer("is_active").notNull().default(1),
