@@ -36,7 +36,13 @@ async function startServer() {
   
   // Health check endpoint for Railway
   app.get("/health", (_req, res) => {
-    res.status(200).json({ status: "ok" });
+    console.log("[Health] Health check called");
+    res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
+  });
+  
+  // Root endpoint for basic check
+  app.get("/api/ping", (_req, res) => {
+    res.status(200).json({ pong: true });
   });
   
   // OAuth callback under /api/oauth/callback
