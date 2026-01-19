@@ -67,6 +67,13 @@ async function startServer() {
 
   server.listen(port, host, () => {
     console.log(`Server running on http://${host}:${port}/`);
+    console.log(`[Server] Process ID: ${process.pid}`);
+    console.log(`[Server] Node version: ${process.version}`);
+    
+    // Keep-alive log every 30 seconds
+    setInterval(() => {
+      console.log(`[Server] Still alive at ${new Date().toISOString()}`);
+    }, 30000);
   });
 }
 
